@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>User edit</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #f8f9fa;
+        }
+        .navbar-light .navbar-nav .nav-link {
+            color: #495057;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1, h3 {
+            text-align: center;
+        }
+        form {
+            margin: auto;
+            width: 50%;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        button {
+            display: block;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+    <h1 class="text-center"><a th:href="@{/}" class="text-decoration-none text-dark">OShop</a></h1>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/registration">Registration</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>OShop</h1>
+            <hr>
+            <h3>Edit user <span th:text="${user.name}"></span></h3>
+
+            <form action="/admin/user/edit" method="post" th:object="${user}">
+                <div th:each="role: ${roles}">
+                    <label>
+                        <input type="checkbox" name="roles" th:value="${role}" th:checked="${user.roles.contains(role)}">
+                        <span th:text="${role}"></span>
+                    </label>
+                </div>
+                <input type="hidden" th:value="${id}" name="userId">
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

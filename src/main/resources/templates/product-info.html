@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Products</title>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <h1 class="text-center"><a th:href="@{/}" class="text-decoration-none text-dark">OShop</a></h1>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item" th:if="${isLogged}">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            <li class="nav-item" th:unless="${isLogged}">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/registration">Registration</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center">OShop</h1>
+            <hr>
+
+            <h1 th:if="${user.isAdmin}"><a th:href="@{/admin}">Admin panel</a></h1>
+
+            <h4 class="mt-4">More information about product</h4>
+
+            <img th:each="image : ${images}" th:src="'data:image/png;base64,' + ${image}" height="60px"/><br><br>
+
+            <b>Name of product: </b> <span th:text="${product.title}"></span> <br>
+            <b>Description of product: </b> <span th:text="${product.description}"></span> <br>
+            <b>Price of product: </b> <span th:text="${product.price}"></span> <br>
+            <b>City of product: </b> <span th:text="${product.city}"></span> <br>
+            <b>Author of product: </b> <a th:href="@{'/user/' + ${user.id}}"><span th:text="${user.name}"></span></a>
+
+            <hr>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

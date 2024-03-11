@@ -1,0 +1,107 @@
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <title>Products</title>
+    </head>
+    <body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <h1 class="text-center"><a th:href="@{/}" class="text-decoration-none text-dark">OShop</a></h1>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login" th:if="${not isLogged}">Login</a>
+                    <a class="nav-link" href="/logout" th:if="${isLogged}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registration">Registration</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">OShop</h1>
+                <hr>
+
+                <h1 th:if="${user.isAdmin}"><a th:href="@{/admin}">Admin panel</a></h1>
+
+                <h4 class="mt-4">Products from all Ukraine</h4>
+
+                <form action="/" method="get" class="mb-4">
+                    <div class="form-row">
+                        <div class="col-md-8">
+                            <input type="text" name="title" class="form-control" placeholder="Find by title">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary">Find</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row">
+                    <div th:each="product : ${products}" class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${product.title}"></h5>
+                                <p class="card-text">
+                                    <span th:text="${product.price}"></span> UAH |
+                                    <a th:href="@{/product/{id}(id=${product.id})}" class="btn btn-primary">More information...</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${user.email}" class="mt-4">
+                    <hr>
+                    <h3>Create new product</h3>
+
+                    <form action="/product/create" method="post" enctype="multipart/form-data">
+
+                        <div class="form-group">
+                            <label for="title">Name offer:</label>
+                            <input type="text" name="title" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description offer:</label>
+                            <input type="text" name="description" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price offer:</label>
+                            <input type="number" name="price" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City offer:</label>
+                            <input type="text" name="city" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="file1">Product Photo 1:</label>
+                            <input type="file" name="files" class="form-control-file" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="file2">Product Photo 2:</label>
+                            <input type="file" name="files" class="form-control-file">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="file3">Product Photo 3:</label>
+                            <input type="file" name="files" class="form-control-file">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Add product</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+    </html>

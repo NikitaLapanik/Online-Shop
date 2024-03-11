@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>User info</title>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <h1 class="text-center"><a th:href="@{/}" class="text-decoration-none text-dark">OShop</a></h1>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/registration">Registration</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center">OShop</h1>
+            <hr>
+
+            <h1 th:if="${user.isAdmin}"><a th:href="@{/admin}">Admin panel</a></h1>
+            <h1 th:if="${isLogged}"><a href="/login">Logout</a></h1>
+
+            <h3 class="mt-4">Information about <span th:text="${user.name}"></span></h3>
+            <b>Number: <span th:text="${user.phoneNumber}"></span></b> <br>
+            <b>Email: <span th:text="${user.email}"></span></b>
+
+            <h4 class="mt-4">Products of user <span th:text="${user.name}"></span></h4>
+
+            <div class="row">
+                <div th:each="product: ${products}" class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${product.title}"></h5>
+                            <p class="card-text">
+                                <b>Description:</b> <span th:text="${product.description}"></span> <br>
+                                <b>Price:</b> <span th:text="${product.price}"></span> UAH <br>
+                                <b>City:</b> <span th:text="${product.city}"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
